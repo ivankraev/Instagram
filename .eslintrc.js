@@ -1,0 +1,52 @@
+module.exports = {
+  root: true,
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    project: 'tsconfig.json',
+    sourceType: 'module',
+    tsconfigRootDir: __dirname,
+  },
+  plugins: ['@typescript-eslint'],
+  extends: [
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:@typescript-eslint/recommended',
+    'prettier',
+    'plugin:prettier/recommended',
+    'plugin:@next/next/recommended',
+    'plugin:react-hooks/recommended',
+  ],
+  settings: { react: { version: 'detect' } },
+  env: {
+    node: true,
+    jest: true,
+  },
+  ignorePatterns: [
+    '.eslintrc.js',
+    'next.config.js',
+    'jest.setup.js',
+    'jest.config.js',
+    'next-i18next.config.js',
+  ],
+  rules: {
+    'react/display-name': 'off',
+    '@typescript-eslint/interface-name-prefix': 'off',
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/no-explicit-any': 2,
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
+    'react/react-in-jsx-scope': 'off',
+    'react/prop-types': 'off',
+    '@typescript-eslint/no-var-requires': 'off',
+    '@next/next/no-img-element': 'off',
+    '@next/next/no-document-import-in-page': 'off',
+    'react/self-closing-comp': ['error', { component: true, html: true }],
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto',
+      },
+    ],
+  },
+}
