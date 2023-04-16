@@ -21,7 +21,7 @@ export default function FilterImagePage() {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
 
-  const filtersCache = useMemo(() => new CreateCache<SelectItem, ImageData>(), [])
+  const filtersCache = useMemo(() => new CreateCache<FilterType, ImageData>(), [])
   const worker = useMemo(() => new CreateWorker(), [])
   const selectOptions = useMemo(() => Object.values(normalizedFilters), [])
 
@@ -42,8 +42,7 @@ export default function FilterImagePage() {
         }
 
         const handleMessage = (event: MessageEvent<FilterMessage>) => {
-          const appliedFilterValue = event.data.filter.value
-          const appliedFilter = normalizedFilters[appliedFilterValue]
+          const appliedFilter = event.data.filter
           const fileredImage = event.data.imageData
           filtersCache.set(appliedFilter, fileredImage)
           setFilteredImage(fileredImage)
@@ -80,12 +79,14 @@ export default function FilterImagePage() {
   useEffect(() => {
     const handleFilterChange = async () => {
       if (uploadedImage) {
-        const cachedValue = filtersCache.get(currentFilter)
+        const cachedValue = filtersCache.get(currentFilter.value)
         if (cachedValue) {
+          console.log('retrieving data from cache...')
+
           setFilteredImage(cachedValue)
         } else {
           const { applyFilter } = await import('utils/apply-filter')
-          applyFilter(worker, uploadedImage, currentFilter)
+          applyFilter(worker, uploadedImage, currentFilter.value)
         }
       }
     }

@@ -1,3 +1,5 @@
+import { CreateCache } from './createCache'
+
 type DynamicHeightItem = {
   height: number
 }
@@ -7,12 +9,14 @@ const TRESHOLD_ITEMS = 3
 export const findStartIndex = (
   scrollTop: number,
   data: DynamicHeightItem[],
-  cache: Map<number, number>,
+  cache: CreateCache<number, number>,
 ) => {
   const scrollTopInt = Math.floor(scrollTop)
 
-  if (cache.has(scrollTopInt)) {
-    return cache.get(scrollTopInt) as number
+  const cacheValue = cache.get(scrollTopInt)
+
+  if (typeof cacheValue === 'number') {
+    return cacheValue
   }
 
   let sum = 0
@@ -32,10 +36,12 @@ export const findEndIndex = (
   data: DynamicHeightItem[],
   startIndex: number,
   containerHeight: number,
-  cache: Map<number, number>,
+  cache: CreateCache<number, number>,
 ) => {
-  if (cache.has(startIndex)) {
-    return cache.get(startIndex) as number
+  const cacheValue = cache.get(startIndex)
+
+  if (typeof cacheValue === 'number') {
+    return cacheValue
   }
 
   let sum = 0

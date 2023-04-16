@@ -5,19 +5,15 @@ interface ICreateCache<K, V> {
   reset(): void
 }
 
-export class CreateCache<K extends object, V> implements ICreateCache<K, V> {
+export class CreateCache<K, V> implements ICreateCache<K, V> {
   private cache
 
   constructor() {
-    this.cache = new WeakMap<K, V>()
+    this.cache = new Map<K, V>()
   }
 
   get(key: K) {
-    const value = this.cache.get(key)
-    if (value) {
-      console.log('retrieving image data from cache...')
-    }
-    return value
+    return this.cache.get(key)
   }
 
   set(key: K, value: V) {
@@ -30,6 +26,6 @@ export class CreateCache<K extends object, V> implements ICreateCache<K, V> {
 
   reset() {
     console.log('clearing cache...')
-    this.cache = new WeakMap<K, V>()
+    this.cache.clear()
   }
 }

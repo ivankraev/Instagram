@@ -1,11 +1,11 @@
 import { CreateWorker } from './createWorker'
 
 type TranferMessage = {
-  filter: FilterObject
+  filter: FilterType
   imageData: Pick<ImageData, 'data' | 'width' | 'height'>
 }
 
-export const applyFilter = (worker: CreateWorker, image: ImageData, filter: FilterObject) => {
+export const applyFilter = (worker: CreateWorker, image: ImageData, filter: FilterType) => {
   if (!image) return
 
   const clonedImageData = {

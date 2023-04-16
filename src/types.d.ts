@@ -1,7 +1,7 @@
 type FilterType = 'none' | 'grayscale' | 'sepia'
 
 type FilterMessage = {
-  filter: FilterObject
+  filter: FilterType
   imageData: ImageData
 }
 

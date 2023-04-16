@@ -11,7 +11,7 @@ export const processImage = (eventData: FilterMessage) => {
     const b = data[i + 2]
     const a = data[i + 3]
 
-    switch (filter.value) {
+    switch (filter) {
       case 'grayscale': {
         const gray = 0.2989 * r + 0.587 * g + 0.114 * b
         filteredData[i] = gray

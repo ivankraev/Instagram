@@ -5,6 +5,7 @@ import { Box, Stack } from '@mui/material'
 import debounce from 'lodash.debounce'
 
 import { findStartIndex, findEndIndex, calculateContentHeight } from 'utils/find-index'
+import { CreateCache } from 'utils/createCache'
 import { useIntersect } from 'hooks/useIntersect'
 import PhotoItem from './photo-item/PhotoItem'
 
@@ -24,8 +25,8 @@ export default function VirtualDynamicList({ data, loadMoreFn, containerRef, isF
 
   const contentHeight = useMemo(() => calculateContentHeight(data), [data])
 
-  const startIndexCache = useMemo(() => new Map<number, number>(), [])
-  const endIndexCache = useMemo(() => new Map<number, number>(), [])
+  const startIndexCache = useMemo(() => new CreateCache<number, number>(), [])
+  const endIndexCache = useMemo(() => new CreateCache<number, number>(), [])
 
   const handleScroll = useCallback(() => {
     const scrollTop = containerRef?.current?.scrollTop as number
@@ -63,7 +64,7 @@ export default function VirtualDynamicList({ data, loadMoreFn, containerRef, isF
       memoizedRef = containerRef.current
     }
     return () => {
-      ;[startIndexCache, endIndexCache].forEach((cache) => cache.clear())
+      ;[startIndexCache, endIndexCache].forEach((cache) => cache.reset())
       memoizedRef?.removeEventListener('scroll', debouncedScroll)
     }
   }, [containerRef, debouncedScroll, endIndexCache, startIndexCache])
