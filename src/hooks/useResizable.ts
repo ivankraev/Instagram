@@ -11,8 +11,6 @@ export const useResizable = () => {
     const resizable = resizableRef.current
     const resizer = resizerRef.current
 
-    let a = 5
-
     function handleMouseDown(e: MouseEvent) {
       e.preventDefault()
       setIsResizing(true)
