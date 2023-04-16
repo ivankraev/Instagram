@@ -35,9 +35,6 @@ export class CreateWorker implements ICreateWorker {
   }
 
   postMessage<MType>(message: MType, transfer?: Transferable[]): void {
-    /*     if (!this.worker) {
-      throw new Error('Worker is not initialized')
-    } */
     if (transfer) {
       this.worker?.postMessage(message, transfer)
     } else {

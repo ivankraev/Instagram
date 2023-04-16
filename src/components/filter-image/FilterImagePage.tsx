@@ -42,7 +42,7 @@ export default function FilterImagePage() {
         }
 
         const handleMessage = (event: MessageEvent<FilterMessage>) => {
-          const appliedFilterValue = event.data.filter.value as FilterType
+          const appliedFilterValue = event.data.filter.value
           const appliedFilter = normalizedFilters[appliedFilterValue]
           const fileredImage = event.data.imageData
           filtersCache.set(appliedFilter, fileredImage)
