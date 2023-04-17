@@ -8,6 +8,8 @@ concurrency:
 jobs:
   changelog:
     runs-on: ubuntu-latest
+    permissions:
+      actions: write
 
     steps:
       # Create a temporary, uniquely named branch to push release info to
