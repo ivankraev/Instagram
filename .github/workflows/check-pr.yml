@@ -22,7 +22,7 @@ jobs:
       - name: Parse Coverage Summary
         id: coverage
         run: |
-          TOTAL_PERCENT=$(jq -r '.total.lines.pct' < coverage/coverage-final.json)
+          TOTAL_PERCENT=$(jq -r '.total.lines.pct' < coverage/coverage-summary.json)
           echo "::set-output name=total_coverage::$TOTAL_PERCENT"
 
       - name: Display Coverage Percentage
