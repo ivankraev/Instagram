@@ -1,8 +1,9 @@
 name: Check PR
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened]
+  push:
+    branches:
+      - mainsss
 
 jobs:
   build:
