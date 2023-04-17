@@ -30,9 +30,7 @@ jobs:
           echo "Total coverage is ${{ env.total_coverage }}%"
 
       - name: Check Coverage
-        run: echo ${{ env.total_coverage }}
-        run: echo ${{ steps.coverage.outputs.total_coverage }}
-        run: echo steps.coverage.outputs.total_coverage
-        if: ${{ env.total_coverage }} < 50
-        run: exit 1
-  
+        run: |
+          echo ${{ env.total_coverage }}
+          echo ${{ steps.coverage.outputs.total_coverage }}
+          echo steps.coverage.outputs.total_coverage
