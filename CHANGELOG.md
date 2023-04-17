@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.1](https://github.com/ivankraev/Instagram/compare/v0.3.0...v0.3.1) (2023-04-17)
+
+
+### 🐛 Bug Fixes
+
+* fixed ([b3a194b](https://github.com/ivankraev/Instagram/commit/b3a194b7afd9bb826a4b808560f56dd8083b85e5))
+
+
+### ✨ Features
+
+* test ([2b96911](https://github.com/ivankraev/Instagram/commit/2b9691123fd6b29fd1bafda65c635b53d0bec979))
+* test ([156eb9a](https://github.com/ivankraev/Instagram/commit/156eb9ab849dc1cb9b075c41161ebbe9b8dab324))
+* test ([05e2a5a](https://github.com/ivankraev/Instagram/commit/05e2a5a2bcde9bca63770a03f036dc32c3bc6077))
+* test ([729fa6d](https://github.com/ivankraev/Instagram/commit/729fa6d390cf0f670b897f13c8fc1e3a82893b85))
+* test ([bb1906a](https://github.com/ivankraev/Instagram/commit/bb1906a35c8113fe323aef98754fb737aba9584a))
+* test ([5d1f1e0](https://github.com/ivankraev/Instagram/commit/5d1f1e0bfd36b0f58ee701313469f331f16edcdd))
+* test ([09cc4ab](https://github.com/ivankraev/Instagram/commit/09cc4ab7d1220c418021e6e7e3a6afcdf7fcb684))
+* test ([0956647](https://github.com/ivankraev/Instagram/commit/095664792e7656171e5d3ab4bc80e87216be2c6b))
+* test ([0818498](https://github.com/ivankraev/Instagram/commit/0818498fd6200355374835f43ab171b8b18cff4d))
+
 ## [0.3.0](https://github.com/ivankraev/Instagram/compare/v0.2.0...v0.3.0) (2023-04-17)
 
 
