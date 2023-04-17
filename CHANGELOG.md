@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://github.com/ivankraev/Instagram/compare/v0.1.11...v0.2.0) (2023-04-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* breaking changesss
+
+### ✨ Features
+
+* test commit ([338a2cc](https://github.com/ivankraev/Instagram/commit/338a2cc7e09237857f506b17bd25248178748e2d))
+
 ### [0.1.11](https://github.com/ivankraev/Instagram/compare/v0.1.10...v0.1.11) (2023-04-17)
 
 ### [0.1.10](https://github.com/ivankraev/Instagram/compare/v0.1.9...v0.1.10) (2023-04-17)
