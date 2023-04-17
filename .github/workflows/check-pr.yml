@@ -26,7 +26,7 @@ jobs:
           echo "total_coverage=$TOTAL_PERCENT" >> $GITHUB_ENV
 
       - name: Check Coverage
-        if: ${{ parseFloat(env.total_coverage) }} < 40
+        if: ${{ number(env.total_coverage) }} < 40
         run: |
           echo "Total coverage is ${{ env.total_coverage }}%"
           echo ${{ env.total_coverage }}
@@ -34,7 +34,7 @@ jobs:
           exit 1
 
       - name: Check Coverage
-        if: ${{ parseFloat(env.total_coverage) }} >= 40
+        if: ${{ number(env.total_coverage) }} >= 40
         run: |
           echo "Total coverage is ${{ env.total_coverage }}%"
           echo "Coverage is meeting the requirements."
