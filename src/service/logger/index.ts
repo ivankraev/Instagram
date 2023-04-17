@@ -11,4 +11,6 @@ if (process.env.NODE_ENV === 'production') {
   logger = devLogger
 }
 
+let a = 5
+
 export default logger
