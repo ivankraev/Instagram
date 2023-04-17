@@ -39,6 +39,7 @@ jobs:
             *) npm version patch ;;
           esac
           echo "::set-output name=new_version::$(node -p -e "require('./package.json').version")"
+        shell: bash
 
       - name: Commit package.json
         run: |
