@@ -11,4 +11,4 @@ if (process.env.NODE_ENV === 'production') {
   logger = devLogger
 }
 
-export default logger as Logger
+export default logger

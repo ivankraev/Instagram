@@ -1,0 +1,31 @@
+name: Check PR
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        run: yarn install
+
+      - name: Lint Code
+        run: yarn lint
+
+      - name: Run Tests
+        run: yarn test --coverage
+
+      - name: Check Test Coverage
+        run: |
+          # Parse the coverage summary output from Jest and extract the total percentage
+          coverage=$(cat coverage/coverage-summary.json | jq -r '.total.lines.pct')
+          if (( $(echo "$coverage < 12" | bc -l) )); then
+            echo "Test coverage is below 12%: $coverage%"
+            exit 1
+          fi
