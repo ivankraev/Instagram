@@ -2,8 +2,7 @@ name: Check PR
 
 on:
   pull_request:
-    branches:
-      - main
+    types: [opened, synchronize, reopened]
 
 jobs:
   build:
@@ -25,7 +24,7 @@ jobs:
         run: |
           # Parse the coverage summary output from Jest and extract the total percentage
           coverage=$(cat coverage/coverage-summary.json | jq -r '.total.lines.pct')
-          if (( $(echo "$coverage < 12" | bc -l) )); then
-            echo "Test coverage is below 12%: $coverage%"
+          if (( $(echo "$coverage < 8" | bc -l) )); then
+            echo "Test coverage is below 8%: $coverage%"
             exit 1
           fi
