@@ -17,6 +17,7 @@
     "format": "prettier --list-different --write .",
     "test": "jest",
     "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "type-check": "tsc --noEmit",
     "pre-commit": "yarn lint && yarn format",
     "commit": "cz",
