@@ -29,6 +29,7 @@ jobs:
         if: ${{ env.total_coverage }} < 40
         run: |
           echo "Total coverage is ${{ env.total_coverage }}%"
+          echo ${{ env.total_coverage }}
           echo "Coverage is below treshold, exiting..."
           exit 1
 
