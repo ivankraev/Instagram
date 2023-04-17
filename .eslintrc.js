@@ -21,13 +21,7 @@ module.exports = {
     node: true,
     jest: true,
   },
-  ignorePatterns: [
-    '.eslintrc.js',
-    'next.config.js',
-    'jest.setup.js',
-    'jest.config.js',
-    'next-i18next.config.js',
-  ],
+  ignorePatterns: ['.eslintrc.js', 'next.config.js', 'jest.setup.js', 'jest.config.js'],
   rules: {
     'react/display-name': 'off',
     '@typescript-eslint/interface-name-prefix': 'off',

@@ -4,11 +4,10 @@ import { EmotionCache } from '@emotion/cache'
 import { CacheProvider } from '@emotion/react'
 import { ThemeProvider } from '@mui/material/styles'
 import { CssBaseline } from '@mui/material'
-import { appWithTranslation } from 'next-i18next'
-import ErrorBoundary from 'components/error-boundary'
 
 import theme from 'styles/theme'
 import createEmotionCache from 'styles/theme/createEmotionCache'
+import ErrorBoundary from 'components/error-boundary'
 
 const clientSideEmotionCache = createEmotionCache()
 
@@ -35,4 +34,4 @@ function MyApp(props: CustomAppProps) {
   )
 }
 
-export default appWithTranslation(MyApp)
+export default MyApp

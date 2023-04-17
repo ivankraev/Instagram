@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 
-const { i18n } = require('./next-i18next.config')
 const { version } = require('./package.json')
+
 const withPWA = require('next-pwa')({
   dest: 'public',
   register: true,
@@ -10,7 +10,6 @@ const withPWA = require('next-pwa')({
 })
 
 const nextConfig = {
-  i18n,
   reactStrictMode: false,
   env: {
     APP_ENV: process.env.APP_ENV,
