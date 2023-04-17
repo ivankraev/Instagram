@@ -23,7 +23,7 @@ jobs:
         id: coverage
         run: |
           TOTAL_PERCENT=$(jq -r '.total.lines.pct' < coverage/coverage-summary.json)
-          echo "name=total_coverage" >> $TOTAL_PERCENT
+          echo "total_coverage=TOTAL_PERCENT" >> $TOTAL_PERCENT
 
       - name: Display Coverage Percentage
         run: |
