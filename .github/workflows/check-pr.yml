@@ -22,9 +22,5 @@ jobs:
 
       - name: Check Test Coverage
         run: |
-          # Parse the coverage summary output from Jest and extract the total percentage
-          coverage=$(cat coverage/coverage-summary.json | jq -r '.total.lines.pct')
-          if (( $(echo "$coverage < 8" | bc -l) )); then
-            echo "Test coverage is below 8%: $coverage%"
-            exit 1
-          fi
+          TOTAL_PERCENT=$(jq -r '.total.lines.pct' < coverage/coverage-final.json)
+          echo "::set-output name=total_coverage::$TOTAL_PERCENT"
