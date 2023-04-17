@@ -23,8 +23,12 @@ jobs:
         id: coverage
         run: |
           TOTAL_PERCENT=$(jq -r '.total.lines.pct' < coverage/coverage-summary.json)
-          echo "::set-output name=total_coverage::$TOTAL_PERCENT"
+          echo "name=total_coverage" >> $TOTAL_PERCENT
 
       - name: Display Coverage Percentage
         run: |
           echo "Test coverage: ${{ steps.coverage.outputs.total_coverage }}%"
+
+      - name: Check Coverage
+        if: steps.coverage.outputs.total_coverage < 50
+        run: exit 1
