@@ -22,8 +22,7 @@ jobs:
       - name: Parse Coverage Summary
         id: coverage
         run: |
-          TOTAL_PERCENT=$(jq -r '.total.lines.pct' < coverage/coverage-summary.json)
-          echo "total_coverage=$TOTAL_PERCENT" >> $GITHUB_OUPUT
+          echo "total_coverage=$(jq -r '.total.lines.pct' < coverage/coverage-summary.json)" >> $GITHUB_OUPUT
 
       - name: Display Coverage Percentage
         run: |
