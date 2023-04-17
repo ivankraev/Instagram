@@ -23,7 +23,10 @@ jobs:
         id: coverage
         run: |
           TOTAL_PERCENT=$(jq -r '.total.lines.pct' < coverage/coverage-summary.json)
-          echo "total_coverage=TOTAL_PERCENT" >> $TOTAL_PERCENT
+          echo "total_coverage=TOTAL_PERCENT" >> $GITHUB_STATE
+
+      - name: Set coverage output
+        run: echo "test_coverage=TOTAL_PERCENT" >> $GITHUB_OUTPUT
 
       - name: Display Coverage Percentage
         run: |
