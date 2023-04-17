@@ -24,10 +24,10 @@ jobs:
         run: |
           TOTAL_PERCENT=$(jq -r '.total.lines.pct' < coverage/coverage-summary.json)
           echo "total_coverage=$TOTAL_PERCENT" >> $GITHUB_ENV
-          echo "Total coverage is ${{ env.total_coverage }}%"
 
       - name: Check Coverage
         if: ${{ env.total_coverage }} < 50
         run: |
+          echo "Total coverage is ${{ env.total_coverage }}%"
           echo "Coverage is below treshold, exiting..."
           exit 1
