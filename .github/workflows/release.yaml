@@ -1,65 +1,68 @@
-name: Releases
-on:
-  workflow_dispatch:
+name: Create Release and Update Version
 
-concurrency:
-  group: 'main-branch'
+on:
+  push:
+    branches:
+      - master
 
 jobs:
-  changelog:
+  build-and-release:
     runs-on: ubuntu-latest
-    permissions: write-all
 
     steps:
-      # Create a temporary, uniquely named branch to push release info to
-      - name: create temporary branch
-        uses: peterjgrainger/action-create-branch@v2.3.0
-        id: create-branch
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
         with:
-          branch: 'release-from-${{ github.sha }}'
-          sha: '${{ github.sha }}'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          node-version: '14.x'
 
-      # check out the repository afterwards
-      - uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm install
 
-      # fetch branches and switch to the temporary branch
-      - name: switch to new branch
-        run: git fetch --all && git checkout --track origin/release-from-${{ github.sha }}
+      - name: Get current version
+        id: version
+        run: echo "::set-output name=current_version::$(node -p -e "require('./package.json').version")"
 
-      # create release info and push it upstream
-      - name: conventional Changelog Action
-        id: changelog
-        uses: TriPSs/conventional-changelog-action@v3
+      - name: Parse commit message
+        id: commit_message
+        run: echo "::set-output name=commit_message::$(git log --format=%B -n 1 HEAD)"
+
+      - name: Update version
+        id: update_version
+        run: |
+          VERSION=$(node -p -e "require('./package.json').version")
+          case "$VERSION" in
+            *-dev) npm version patch ;;
+            *) npm version minor ;;
+          esac
+          echo "::set-output name=new_version::$(node -p -e "require('./package.json').version")"
+
+      - name: Commit package.json
+        run: |
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+          git commit -am "chore(release): ${{ steps.update_version.outputs.new_version }}"
+
+      - name: Create tag
+        id: tag
+        run: |
+          git tag -a "${{ steps.update_version.outputs.new_version }}" -m "${{ steps.commit_message.outputs.commit_message }}"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          version-file: './package.json,./package-lock.json'
-          git-branch: 'release-from-${{ github.sha }}'
-          skip-on-empty: false
-          skip-git-pull: true
+          branch: master
+          tags: true
 
-      # create PR using GitHub CLI
-      - name: create PR with release info
-        id: create-pr
-        run: gh pr create --base main --head release-from-${{ github.sha }} --title 'Merge new release into main' --body 'Created by Github action'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # merge PR using GitHub CLI
-      - name: merge PR with release info
-        id: merge-pr
-        run: gh pr merge --admin --merge --subject 'Merge release info' --delete-branch
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # release info is now in main so we can continue as before
-      - name: create release with last commit
+      - name: Create release
         uses: actions/create-release@v1
-        if: steps.changelog.outputs.skipped == 'false'
+        with:
+          tag_name: '${{ steps.update_version.outputs.new_version }}'
+          release_name: '${{ steps.update_version.outputs.new_version }}'
+          body: '${{ steps.commit_message.outputs.commit_message }}'
+          draft: false
+          prerelease: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ steps.changelog.outputs.tag }}
-          release_name: ${{ steps.changelog.outputs.tag }}
-          body: ${{ steps.changelog.outputs.clean_changelog }}
