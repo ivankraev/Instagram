@@ -19,8 +19,10 @@ jobs:
 
       - name: Install dependencies
         run: yarn install
+
       - name: Test and coverage
         run: yarn test:coverage
+
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:

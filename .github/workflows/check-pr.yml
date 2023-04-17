@@ -6,7 +6,8 @@ on:
   types: [opened, synchronize, reopened]
 
 jobs:
-  build:
+  check_pr:
+    name: Check PR
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
