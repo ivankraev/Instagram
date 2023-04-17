@@ -32,7 +32,7 @@ jobs:
           COMMIT_MSG=$(git log --format=%B -n 1 ${{ github.sha }})
           case "$COMMIT_MSG" in
             *feat*) npm version minor ;;
-           *BREAKING CHANGE*) npm version major ;;
+           *BREAKING*) npm version major ;;
             *) npm version patch ;;
           esac
           echo "::set-output name=new_version::$(node -p -e "require('./package.json').version")"
