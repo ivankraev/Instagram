@@ -22,11 +22,12 @@ jobs:
       - name: Parse Coverage Summary
         id: coverage
         run: |
-          echo "total_coverage=$(jq -r '.total.lines.pct' < coverage/coverage-summary.json)" >> $GITHUB_OUPUT
+          TOTAL_PERCENT=$(jq -r '.total.lines.pct' < coverage/coverage-summary.json)
+          echo "total_coverage=$TOTAL_PERCENT" >> $GITHUB_ENV
 
       - name: Display Coverage Percentage
         run: |
-          echo "Test coverage: ${{ steps.coverage.outputs.total_coverage }}%"
+          echo "Total coverage is ${{ env.total_coverage }}%"
 
       - name: Check Coverage
         if: steps.coverage.outputs.total_coverage < 50
