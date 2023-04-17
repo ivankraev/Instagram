@@ -1,9 +1,7 @@
 name: Check PR
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   build:
@@ -21,7 +19,12 @@ jobs:
       - name: Run Tests
         run: yarn test --coverage
 
-      - name: Check Test Coverage
+      - name: Parse Coverage Summary
+        id: coverage
         run: |
           TOTAL_PERCENT=$(jq -r '.total.lines.pct' < coverage/coverage-final.json)
-          echo $TOTAL_PERCENT
+          echo "::set-output name=total_coverage::$TOTAL_PERCENT"
+
+      - name: Display Coverage Percentage
+        run: |
+          echo "Test coverage: ${{ steps.coverage.outputs.total_coverage }}%"
