@@ -35,4 +35,4 @@ jobs:
         run: echo steps.coverage.outputs.total_coverage
         if: ${{ env.total_coverage }} < 50
         run: exit 1
-        fi
+  
