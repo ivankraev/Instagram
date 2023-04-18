@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.3.2 (2023-04-18)
+
+
+### 🚚 Chores
+
+* **release:** 1.3.1 ([ddf8d62](https://github.com/ivankraev/Instagram/commit/ddf8d624fae9cdbbe9bb905c4852bdb8d20e6975))
+
 ### 1.3.1 (2023-04-18)
 
 
