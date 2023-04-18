@@ -19,13 +19,9 @@ jobs:
         with:
           node-version: '16.x'
 
-      - name: Get current version
-        id: version
-        run: echo "::set-output name=current_version::$(node -p -e "require('./package.json').version")"
-
       - name: Parse commit message
         id: commit_message
-        run: echo "::set-output name=commit_message::$(git log --format=%B -n 1 HEAD)"
+        run: echo "commit_message=$(git log --format=%B -n 1 HEAD)" >> $GITHUB_ENV
 
       - name: Update version
         id: update_version
@@ -39,12 +35,12 @@ jobs:
             *feat*) npm version minor ;;
             *) npm version patch ;;
           esac
-          echo "::set-output name=new_version::$(node -p -e "require('./package.json').version")"
+          echo "new_version=$(node -p -e "require('./package.json').version")" >> $GITHUB_ENV
 
       - name: Create tag
         id: tag
         run: |
-          git tag -a "${{ steps.update_version.outputs.new_version }}" -m "${{ steps.commit_message.outputs.commit_message }}"
+          git tag -a "${{ env.new_version }}" -m "${{ env.commit_message }}"
 
       - name: Push changes
         uses: ad-m/github-push-action@master
@@ -55,9 +51,9 @@ jobs:
       - name: Create release
         uses: actions/create-release@v1
         with:
-          tag_name: '${{ steps.update_version.outputs.new_version }}'
-          release_name: '${{ steps.update_version.outputs.new_version }}'
-          body: '${{ steps.commit_message.outputs.commit_message }}'
+          tag_name: '${{ env.new_version }}'
+          release_name: '${{ env.new_version }}'
+          body: '${{ env.commit_message }}'
           draft: false
           prerelease: false
         env:
