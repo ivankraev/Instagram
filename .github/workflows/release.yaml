@@ -34,8 +34,8 @@ jobs:
           git config user.email "ivan@users.noreply.github.com"
           COMMIT_MSG=$(git log --format=%B -n 1 ${{ github.sha }})
           case "$COMMIT_MSG" in
+            *BREAKING*) npm version major ;;
             *feat*) npm version minor ;;
-           *BREAKING*) npm version major ;;
             *) npm version patch ;;
           esac
           echo "::set-output name=new_version::$(node -p -e "require('./package.json').version")"
@@ -49,7 +49,7 @@ jobs:
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.ACCESS_TOKEN }}
           branch: ${{ github.ref }}
 
       - name: Create release
