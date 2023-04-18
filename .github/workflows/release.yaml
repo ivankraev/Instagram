@@ -23,6 +23,9 @@ jobs:
         id: commit_message
         run: echo "commit_message="$(git log --format=%B -n 1 HEAD)"" >> $GITHUB_ENV
 
+      - name: Install dependencies
+        run: yarn install
+
       - name: Update version
         id: update_version
         run: |
