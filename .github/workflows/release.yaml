@@ -33,6 +33,7 @@ jobs:
           git config user.name "ivan"
           git config user.email "ivan@users.noreply.github.com"
           COMMIT_MSG=$(git log --format=%B -n 1 ${{ github.sha }})
+          echo $COMMIT_MSG
           case "$COMMIT_MSG" in
             *BREAKING*) npm version major ;;
             *feat*) npm version minor ;;
@@ -45,7 +46,6 @@ jobs:
         id: tag
         run: |
           git tag -a "${{ steps.update_version.outputs.new_version }}" -m "${{ steps.commit_message.outputs.commit_message }}"
-          echo ${{ steps.commit_message.outputs.commit_message }}
 
       - name: Push changes
         uses: ad-m/github-push-action@master
