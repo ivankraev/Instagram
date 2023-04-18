@@ -25,6 +25,28 @@ const nextConfig = {
   images: {
     domains: [process.env.IMAGE_HOST ?? 'localhost', 'images.unsplash.com'],
   },
+  async headers() {
+    return [
+      {
+        source: '/about',
+        headers: [
+          {
+            key: 'X-About-Custom-Header',
+            value: 'about_header_value',
+          },
+        ],
+      },
+      {
+        source: '/news/:id',
+        headers: [
+          {
+            key: 'X-News-Custom-Header',
+            value: 'news_header_value',
+          },
+        ],
+      },
+    ]
+  },
 }
 
 module.exports = withPWA(nextConfig)
