@@ -45,6 +45,7 @@ jobs:
         id: tag
         run: |
           git tag -a "${{ steps.update_version.outputs.new_version }}" -m "${{ steps.commit_message.outputs.commit_message }}"
+          echo ${{ steps.commit_message.outputs.commit_message }}
 
       - name: Push changes
         uses: ad-m/github-push-action@master
