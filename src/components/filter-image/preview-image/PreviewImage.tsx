@@ -10,7 +10,7 @@ export const ImageWrapper = styled(Box)(() => ({
 
 export default function PreviewImage({ url }: { url: string }) {
   return (
-    <ImageWrapper sx={{ height: { xs: '60vh', sm: '70vh' } }}>
+    <ImageWrapper sx={{ height: { xs: '55vh', sm: '64vh' } }}>
       <Image src={url} fill style={{ objectFit: 'contain' }} alt={''} />
     </ImageWrapper>
   )

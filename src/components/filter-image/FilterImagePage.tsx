@@ -1,13 +1,12 @@
 import { useState, useRef, useEffect, useMemo } from 'react'
 import dynamic from 'next/dynamic'
-import Link from 'next/link'
 import { Box, Typography, Container, SelectChangeEvent, Button, Stack } from '@mui/material'
 
 import { CreateCache } from 'utils/createCache'
 import { CreateWorker } from 'utils/createWorker'
 import { IMAGE_WIDTH, normalizedFilters } from './config'
-import { routes } from 'common/routes'
 import FileButton from 'components/common/FileButton'
+import SEOLayout from 'components/seo-layout'
 
 const SelectMenu = dynamic(() => import('components/common/SelectMenu'))
 const PreviewImage = dynamic(() => import('./preview-image'))
@@ -116,40 +115,46 @@ export default function FilterImagePage() {
   }, [filtersCache, worker, canvasUrl])
 
   return (
-    <Container maxWidth={'sm'} sx={{ minHeight: '100vh', py: { xs: 2, sm: 4 }, display: 'flex' }}>
-      <Stack flex={1} spacing={uploadedImage ? 2 : 0} justifyContent={'space-between'}>
-        <Stack flex={1} display={'flex'} flexDirection={'column'}>
-          <Link aria-label={routes.index} href={'/'}>
-            Back
-          </Link>
-          <Stack flex={1} justifyContent={'space-between'}>
-            <Stack flex={1} alignItems={'center'} justifyContent={'center'}>
-              <Typography variant="h1">Image Filters</Typography>
+    <SEOLayout title="Image Filters">
+      <Container
+        maxWidth={'sm'}
+        sx={{
+          height: { xs: 'calc(100vh - 55.99px)', sm: 'calc(100vh - 63.99px)' },
+          py: { xs: 2, sm: 4 },
+          display: 'flex',
+          overflow: 'hidden',
+        }}>
+        <Stack flex={1} spacing={uploadedImage ? 2 : 0} justifyContent={'space-between'}>
+          <Stack flex={1} display={'flex'} flexDirection={'column'}>
+            <Stack flex={1} justifyContent={'space-between'}>
+              <Stack flex={1} alignItems={'center'} justifyContent={'center'}>
+                <Typography variant="h1">Image Filters</Typography>
+              </Stack>
+              <Box>
+                <FileButton onChange={handleFileChange} ref={fileInputRef} />
+                <Box component="canvas" ref={canvasRef} style={{ display: 'none' }} />
+              </Box>
             </Stack>
-            <Box>
-              <FileButton onChange={handleFileChange} ref={fileInputRef} />
-              <Box component="canvas" ref={canvasRef} style={{ display: 'none' }} />
-            </Box>
+          </Stack>
+          <Stack spacing={2}>
+            {canvasUrl && (
+              <>
+                <PreviewImage url={canvasUrl} />
+                <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2 }}>
+                  <SelectMenu
+                    onChange={onFilterChange}
+                    options={selectOptions}
+                    value={currentFilter.value}
+                  />
+                  <Button variant="contained" fullWidth>
+                    Submit
+                  </Button>
+                </Box>
+              </>
+            )}
           </Stack>
         </Stack>
-        <Stack spacing={2}>
-          {canvasUrl && (
-            <>
-              <PreviewImage url={canvasUrl} />
-              <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2 }}>
-                <SelectMenu
-                  onChange={onFilterChange}
-                  options={selectOptions}
-                  value={currentFilter.value}
-                />
-                <Button variant="contained" fullWidth>
-                  Submit
-                </Button>
-              </Box>
-            </>
-          )}
-        </Stack>
-      </Stack>
-    </Container>
+      </Container>
+    </SEOLayout>
   )
 }

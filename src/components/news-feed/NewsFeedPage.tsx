@@ -1,17 +1,15 @@
 import { useCallback, useEffect, useState, useRef } from 'react'
-import { Container, AppBar, Toolbar } from '@mui/material'
-import Link from 'next/link'
+import { Container } from '@mui/material'
 
-import { getPhotos } from 'utils/get-photos'
-import { routes } from 'common/routes'
 import { PER_PAGE } from './config'
 import VirtualDynamicList from 'components/virtual-list-dynamic'
+import SEOLayout from 'components/seo-layout'
 
 type Props = {
   initialPhotos: Photo[]
 }
 
-export default function VirtualListExample({ initialPhotos }: Props) {
+export default function NewsFeedPage({ initialPhotos }: Props) {
   const [photos, setPhotos] = useState<Photo[]>(initialPhotos)
   const [isFetching, setIsFetching] = useState(false)
   const [page, setPage] = useState(1)
@@ -29,6 +27,8 @@ export default function VirtualListExample({ initialPhotos }: Props) {
 
     abortControllerRef.current = new AbortController()
     const { signal } = abortControllerRef.current
+
+    const { getPhotos } = await import('utils/get-photos')
 
     const result = await getPhotos({ page, limit: PER_PAGE, options: { signal } })
 
@@ -50,16 +50,7 @@ export default function VirtualListExample({ initialPhotos }: Props) {
   }, [])
 
   return (
-    <>
-      <AppBar position="sticky">
-        <Toolbar disableGutters component="nav">
-          <Container maxWidth={'sm'}>
-            <Link style={{ color: '#ffffff' }} aria-label={'home page'} href={routes.index}>
-              Back
-            </Link>
-          </Container>
-        </Toolbar>
-      </AppBar>
+    <SEOLayout title="Feed">
       <Container
         ref={containerRef}
         maxWidth={false}
@@ -76,6 +67,6 @@ export default function VirtualListExample({ initialPhotos }: Props) {
           loadMoreFn={goGoNextPage}
         />
       </Container>
-    </>
+    </SEOLayout>
   )
 }

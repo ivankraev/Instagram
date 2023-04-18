@@ -2,6 +2,8 @@ import React from 'react'
 import { Box, Button, Typography } from '@mui/material'
 import { NextRouter, withRouter } from 'next/router'
 
+import SEOLayout from 'components/seo-layout/SEOLayout'
+
 interface Props {
   children: React.ReactNode
   router: NextRouter
@@ -43,21 +45,23 @@ class ErrorBoundary extends React.Component<Props, State> {
     if (this.state.hasError) {
       // Fallback UI
       return (
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItem: 'center',
-            justifyContent: 'center',
-            height: '100vh',
-          }}>
-          <Typography variant="h1">Something went wrong.</Typography>
-          <Box width="100%" display="flex">
-            <Button sx={{ margin: 'auto' }} onClick={() => this.setState({ hasError: false })}>
-              Try again
-            </Button>
+        <SEOLayout title={'Error occured'}>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItem: 'center',
+              justifyContent: 'center',
+              height: { xs: 'calc(100vh - 55.99px)', sm: 'calc(100vh - 63.99px)' },
+            }}>
+            <Typography variant="h1">Something went wrong.</Typography>
+            <Box width="100%" display="flex">
+              <Button sx={{ margin: 'auto' }} onClick={() => this.setState({ hasError: false })}>
+                Try again
+              </Button>
+            </Box>
           </Box>
-        </Box>
+        </SEOLayout>
       )
     }
 
