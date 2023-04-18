@@ -35,7 +35,7 @@ jobs:
           COMMIT_MSG=$(git log --format=%B -n 1 ${{ github.sha }})
           echo $COMMIT_MSG
           case "$COMMIT_MSG" in
-            *BREAKING*) npm version major ;;
+            *BREAKING CHANGE*) npm version major ;;
             *feat*) npm version minor ;;
             *) npm version patch ;;
           esac
