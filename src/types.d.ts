@@ -1,3 +1,13 @@
+declare namespace NodeJS {
+  interface ProcessEnv {
+    APP_ENV: string
+    APP_URL: string
+    UNSPLASH_API_URL: string
+    UNSPLASH_ACCESS_KEY: string
+    UNSPLASH_SECRET_KEY: string
+  }
+}
+
 type FilterType = 'none' | 'grayscale' | 'sepia'
 
 type FilterMessage = {
