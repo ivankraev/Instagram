@@ -141,11 +141,7 @@ export default function FilterImagePage() {
               <>
                 <PreviewImage url={canvasUrl} />
                 <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2 }}>
-                  <SelectMenu
-                    onChange={onFilterChange}
-                    options={selectOptions}
-                    value={currentFilter.value}
-                  />
+                  <SelectMenu onChange={onFilterChange} options={selectOptions} />
                   <Button variant="contained" fullWidth>
                     Submit
                   </Button>

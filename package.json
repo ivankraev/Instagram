@@ -19,6 +19,7 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "test:e2e": "cypress open",
+    "test:e2e:component": "yarn cypress run --headless --component",
     "type-check": "tsc --noEmit",
     "pre-commit": "yarn lint && yarn format",
     "commit": "cz",
