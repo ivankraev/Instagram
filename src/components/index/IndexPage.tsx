@@ -22,6 +22,9 @@ export default function IndexPage() {
           <p>
             <Link href={routes.newsFeed}>Feed</Link>
           </p>
+          <p>
+            <Link href={routes.chatRoom}>Chat Room</Link>
+          </p>
         </Box>
       </Container>
     </SEOLayout>

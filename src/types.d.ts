@@ -48,3 +48,7 @@ type SelectItem = {
   value: string
   label: string
 }
+
+type Message = {
+  body: string
+}

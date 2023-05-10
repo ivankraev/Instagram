@@ -102,17 +102,17 @@ export default function FilterImagePage() {
   useEffect(() => {
     //! test error boundary
     //! throw an error when upload an image
-    if (canvasUrl !== null) {
-      setCanvasUrl(null)
-      throw new Error()
-    }
+    // if (canvasUrl !== null) {
+    //   setCanvasUrl(null)
+    //   throw new Error()
+    // }
     return () => {
       if (worker.isInitialized()) {
         worker.destroy()
         filtersCache.reset()
       }
     }
-  }, [filtersCache, worker, canvasUrl])
+  }, [filtersCache, worker])
 
   return (
     <SEOLayout title="Image Filters">

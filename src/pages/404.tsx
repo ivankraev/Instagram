@@ -1,4 +1,12 @@
-// TODO: create custom 404 page
+import SEOLayout from 'components/seo-layout/SEOLayout'
+import { Typography } from '@mui/material'
+
 export default function Custom404() {
-  return <h1>404 - Server-side error occurred</h1>
+  return (
+    <SEOLayout title="Page not found">
+      <Typography sx={{ m: 'auto' }} variant="h2">
+        Page not found
+      </Typography>
+    </SEOLayout>
+  )
 }
