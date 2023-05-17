@@ -27,6 +27,7 @@ module.exports = {
     'jest.setup.js',
     'jest.config.js',
     'commitlint.config.js',
+    'cypress.config.ts',
     'cypress/*',
   ],
   rules: {
