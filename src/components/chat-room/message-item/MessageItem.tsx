@@ -11,11 +11,14 @@ export default function MessageItem({ message }: Props) {
       sx={{
         height: 'auto',
         background: '#fcfcfc',
+        padding: '0.5rem',
         '& .MuiChip-label': {
-          padding: '0.5rem',
           fontSize: '0.875rem',
           display: 'block',
           whiteSpace: 'normal',
+        },
+        '.MuiSvgIcon-root': {
+          alignSelf: 'start',
         },
       }}
       label={message.body}
