@@ -5,6 +5,7 @@ import io, { Socket } from 'Socket.IO-client'
 import SendIcon from '@mui/icons-material/Send'
 import MessageItem from './message-item'
 import SEOLayout from 'components/seo-layout'
+import { MessageWrapper, Wrapper } from './ChatRoom.styled'
 
 let socket: Socket
 
@@ -30,7 +31,6 @@ export default function ChatRoom() {
 
   useEffect(() => {
     socketInitializer()
-    // eslint-disable-next-line
   }, [])
 
   const sendMessage = async () => {
@@ -38,39 +38,21 @@ export default function ChatRoom() {
       lastMessageRef.current?.scrollIntoView()
       setMessages((prev) => [...prev, { body: message }])
       socket.emit('send-message', message)
+      setMessage('')
     }
   }
 
   return (
     <SEOLayout title="Chat Room">
-      <Container
-        disableGutters
-        sx={{
-          height: {
-            xs: 'calc(100vh - 55.99px - 2.5rem)',
-            sm: 'calc(100vh - 63.99px - 2.5rem)',
-            position: 'relative',
-            overflowY: 'auto',
-            background:
-              'linear-gradient(0deg, rgba(247,247,247,1) 0%, rgba(104,230,255,0.3603816526610645) 51%, rgba(56,162,228,0.6488970588235294) 77%, rgba(25,118,210,0.8365721288515406) 100%)',
-          },
-        }}
-        maxWidth={'sm'}>
-        <Box sx={{}}>
-          <Box
-            sx={{
-              p: 2,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'end',
-              gap: '0.5rem',
-            }}>
+      <Wrapper disableGutters maxWidth={'sm'}>
+        <Box>
+          <MessageWrapper>
             {messages.map((message, idx) => (
               <div key={idx} ref={idx === messages.length - 1 ? lastMessageRef : undefined}>
                 <MessageItem message={message} />
               </div>
             ))}
-          </Box>
+          </MessageWrapper>
         </Box>
         <Container disableGutters maxWidth={'sm'} sx={{ position: 'fixed', bottom: 0 }}>
           <Stack direction={'row'}>
@@ -78,6 +60,7 @@ export default function ChatRoom() {
               placeholder="Type your message..."
               sx={{ flex: 1, '.MuiInputBase-root': { borderRadius: 0 } }}
               size="small"
+              value={message}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
                   sendMessage()
@@ -94,7 +77,7 @@ export default function ChatRoom() {
             </Button>
           </Stack>
         </Container>
-      </Container>
+      </Wrapper>
     </SEOLayout>
   )
 }
