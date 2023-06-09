@@ -1,4 +1,5 @@
 import { unsplashClient } from 'service/apiClient'
+import * as Sentry from '@sentry/nextjs'
 import { unsplashToCustom } from './unsplash-to-custom'
 import { AxiosRequestConfig } from 'axios'
 
@@ -15,6 +16,6 @@ export const getPhotos = async ({ page, limit, orderBy = 'popular', options }: G
     const { data } = await unsplashClient.get(url, options)
     return unsplashToCustom(data)
   } catch (error) {
-    console.log(error)
+    Sentry.captureException(error)
   }
 }

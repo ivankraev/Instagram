@@ -2,8 +2,8 @@ declare namespace NodeJS {
   interface ProcessEnv {
     APP_ENV: string
     APP_URL: string
-    UNSPLASH_API_URL: string
     UNSPLASH_ACCESS_KEY: string
+    UNSPLASH_API_URL: string
     UNSPLASH_SECRET_KEY: string
   }
 }
@@ -16,37 +16,37 @@ type FilterMessage = {
 }
 
 type Photo = {
-  id: string
-  height: number
-  url: string
-  width: number
   alt?: string
   description?: string
   divHeight: number
+  height: number
+  id: string
   key: string
+  url: string
+  width: number
 }
 
 type UnsplashPhoto = {
-  width: number
-  height: number
-  description: string
   alt_description: string
-  id: string
   blur_hash: string
+  description: string
+  height: number
+  id: string
+  width: number
   urls: {
-    small: string
     raw: string
+    small: string
   }
 }
 
 type FilterObject = {
-  value: FilterType
   label: string
+  value: FilterType
 }
 
 type SelectItem = {
-  value: string
   label: string
+  value: string
 }
 
 type Message = {
