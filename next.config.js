@@ -52,6 +52,24 @@ const nextConfig = {
   images: {
     domains: [process.env.IMAGE_HOST ?? 'localhost', 'images.unsplash.com'],
   },
+
+  webpack: (config, { dev }) => {
+    const terserOptions = {
+      compress: {
+        // Example: disable console.log removal
+        drop_console: false,
+      },
+    }
+    // Customize minification plugin - next already comes with that plugin, but if we want to customize
+    // it we can do that...
+    if (!dev) {
+      // Minify JavaScript in production
+      const TerserPlugin = require('terser-webpack-plugin')
+      config.optimization.minimizer.push(new TerserPlugin({ terserOptions }))
+    }
+
+    return config
+  },
   async headers() {
     return [
       {
